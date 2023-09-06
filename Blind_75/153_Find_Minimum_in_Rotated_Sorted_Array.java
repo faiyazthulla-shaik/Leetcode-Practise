@@ -1,24 +1,22 @@
 class Solution {
     public int findMin(int[] nums) {
-        if(nums.length == 0) return 0;
-
+        if(nums.length == 0 || nums == null) return 0;
+        if(nums[0]<nums[nums.length-1] || nums.length == 1) return nums[0];
         int left = 0;
         int right = nums.length-1;
-
-        while(left<right){
-            int midPoint = left+(right-left)/2;
-
-            if(midPoint>0 && nums[midPoint] < nums[midPoint-1]){
-                return nums[midPoint];
-            }else if(nums[left] <= nums[midPoint] && nums[midPoint] > nums[right]){
-                left = midPoint+1;
+        while(left<=right){
+            int mid = left+(right-left)/2;
+            if(mid>0 && nums[mid]<nums[mid-1]) return nums[mid];
+            if(nums[mid]>nums[mid+1]) return nums[mid+1];
+            if(nums[left]<nums[mid]){
+                left = mid+1;
             }else{
-                right = midPoint-1;
+                right = mid-1;
             }
         }
-        return nums[left];
+        return -1;
     }
 }
 
-//Time complexity: O(log N)
+//Time complexity: O(log n)
 //Space complexity: O(1)
